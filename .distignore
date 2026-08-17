@@ -4,6 +4,7 @@
 .gitignore
 .distignore
 .wordpress-org
+.gitkeep
 node_modules
 tests
 build

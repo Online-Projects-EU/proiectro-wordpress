@@ -16,6 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery -- the outbox is the plugin's own table; every
+// statement below is prepared, and its rows change on every send, so the object cache would only
+// serve stale delivery state.
+
 class Proiectro_Outbox {
 
 	const ADMIN_PAGE   = 'proiectro-outbox';
@@ -104,10 +108,10 @@ class Proiectro_Outbox {
 	 */
 	public function flush() {
 		global $wpdb;
-		$table = self::table();
-		$ids   = $wpdb->get_col(
+		$ids = $wpdb->get_col(
 			$wpdb->prepare(
-				"SELECT id FROM {$table} WHERE status = 'pending' AND (next_attempt_at IS NULL OR next_attempt_at <= %s) ORDER BY id ASC LIMIT %d",
+				"SELECT id FROM %i WHERE status = 'pending' AND (next_attempt_at IS NULL OR next_attempt_at <= %s) ORDER BY id ASC LIMIT %d",
+				self::table(),
 				current_time( 'mysql', true ),
 				self::BATCH
 			)
@@ -125,14 +129,15 @@ class Proiectro_Outbox {
 	public function deliver( $id ) {
 		global $wpdb;
 		$table = self::table();
-		$row   = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE id = %d", $id ), ARRAY_A );
+		$row   = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM %i WHERE id = %d', $table, $id ), ARRAY_A );
 		if ( ! $row || 'pending' !== $row['status'] ) {
 			return false;
 		}
 		// Claim the row so a concurrent cron run does not send it twice.
 		$claimed = $wpdb->query(
 			$wpdb->prepare(
-				"UPDATE {$table} SET attempts = attempts + 1, next_attempt_at = %s WHERE id = %d AND attempts = %d",
+				'UPDATE %i SET attempts = attempts + 1, next_attempt_at = %s WHERE id = %d AND attempts = %d',
+				$table,
 				gmdate( 'Y-m-d H:i:s', time() + 5 * MINUTE_IN_SECONDS ),
 				$id,
 				(int) $row['attempts']
@@ -203,8 +208,7 @@ class Proiectro_Outbox {
 
 	public function counts() {
 		global $wpdb;
-		$table = self::table();
-		$rows  = $wpdb->get_results( "SELECT status, COUNT(*) AS n FROM {$table} GROUP BY status", ARRAY_A );
+		$rows = $wpdb->get_results( $wpdb->prepare( 'SELECT status, COUNT(*) AS n FROM %i GROUP BY status', self::table() ), ARRAY_A );
 		$out   = array( 'pending' => 0, 'sent' => 0, 'failed' => 0 );
 		foreach ( (array) $rows as $r ) {
 			$out[ $r['status'] ] = (int) $r['n'];
@@ -265,8 +269,7 @@ class Proiectro_Outbox {
 			return;
 		}
 		global $wpdb;
-		$table = self::table();
-		$rows  = $wpdb->get_results( "SELECT * FROM {$table} ORDER BY id DESC LIMIT 200", ARRAY_A );
+		$rows       = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM %i ORDER BY id DESC LIMIT %d', self::table(), 200 ), ARRAY_A );
 		$action_url = admin_url( 'admin-post.php' );
 		?>
 		<div class="wrap">

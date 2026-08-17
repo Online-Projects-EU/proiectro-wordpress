@@ -45,8 +45,6 @@ final class Proiectro_Plugin {
 		$this->leads    = new Proiectro_Leads( $this->outbox, $this->settings );
 		$this->bridges  = new Proiectro_Form_Bridges( $this->leads );
 
-		load_plugin_textdomain( 'proiectro', false, dirname( plugin_basename( PROIECTRO_PLUGIN_FILE ) ) . '/languages' );
-
 		$this->settings->register();
 		$this->outbox->register();
 		$this->leads->register();
