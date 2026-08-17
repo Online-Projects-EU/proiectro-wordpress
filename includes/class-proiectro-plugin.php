@@ -28,6 +28,9 @@ final class Proiectro_Plugin {
 	/** @var Proiectro_Leads */
 	public $leads;
 
+	/** @var Proiectro_Form_Bridges */
+	public $bridges;
+
 	public static function instance() {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
@@ -40,12 +43,14 @@ final class Proiectro_Plugin {
 		$this->api      = new Proiectro_Api( $this->settings );
 		$this->outbox   = new Proiectro_Outbox( $this->api );
 		$this->leads    = new Proiectro_Leads( $this->outbox, $this->settings );
+		$this->bridges  = new Proiectro_Form_Bridges( $this->leads );
 
 		load_plugin_textdomain( 'proiectro', false, dirname( plugin_basename( PROIECTRO_PLUGIN_FILE ) ) . '/languages' );
 
 		$this->settings->register();
 		$this->outbox->register();
 		$this->leads->register();
+		$this->bridges->register();
 
 		add_action( self::CRON_HOOK, array( $this->outbox, 'flush' ) );
 		add_action( 'admin_init', array( $this, 'maybe_upgrade' ) );

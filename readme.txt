@@ -1,6 +1,6 @@
 === Proiect.ro ===
 Contributors: proiectro
-Tags: crm, leads, forms, contact form, lead capture
+Tags: crm, leads, contact form 7, wpforms, gravity forms
 Requires at least: 6.2
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -34,7 +34,7 @@ This plugin sends data to Proiect.ro (https://proiect.ro), or to the self-hosted
 
 = Which form plugins are supported? =
 
-The shortcode form works out of the box. Bridges for popular form plugins are coming; until then any form can be connected with a few lines calling `do_action( 'proiectro_capture_lead', $fields, 'my-form' )`.
+Contact Form 7, WPForms and Gravity Forms: when one of them is active, its forms are listed under Settings > Proiect.ro > Forms — tick the ones whose submissions should become leads (none are on by default). Name, email, phone, company and message fields are recognised by type or label; everything else the form collected is kept in the lead's notes. The shortcode form works without any form plugin, and any other form can be connected with `do_action( 'proiectro_capture_lead', $fields, 'my-form' )`.
 
 = What happens if Proiect.ro is unreachable? =
 
@@ -47,4 +47,4 @@ Only *create*. The plugin never reads, updates or deletes anything in your works
 == Changelog ==
 
 = 0.1.0 =
-* First release: settings, connection test, outbox with retries, shortcode form, `proiectro_capture_lead` hook.
+* First release: settings, connection test, outbox with retries, shortcode form, `proiectro_capture_lead` hook, Contact Form 7 / WPForms / Gravity Forms bridges.

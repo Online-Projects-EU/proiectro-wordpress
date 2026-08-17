@@ -29,6 +29,7 @@ require_once PROIECTRO_PLUGIN_DIR . 'includes/class-proiectro-settings.php';
 require_once PROIECTRO_PLUGIN_DIR . 'includes/class-proiectro-api.php';
 require_once PROIECTRO_PLUGIN_DIR . 'includes/class-proiectro-outbox.php';
 require_once PROIECTRO_PLUGIN_DIR . 'includes/class-proiectro-leads.php';
+require_once PROIECTRO_PLUGIN_DIR . 'includes/class-proiectro-form-bridges.php';
 require_once PROIECTRO_PLUGIN_DIR . 'includes/class-proiectro-plugin.php';
 
 // Registered at file load, not from the instance: the activation hook needs the schedule

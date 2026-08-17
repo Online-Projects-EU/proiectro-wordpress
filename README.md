@@ -7,9 +7,11 @@ outbox that retries until every lead is delivered. Ships as the `proiectro` plug
   test tells you when a key can do more than that), default lead list and source.
 - **Outbox** — every submission is stored first, sent immediately, retried with backoff on failure,
   visible and retryable from the admin.
-- **Intake** — `[proiectro_lead_form]` shortcode, and `do_action( 'proiectro_capture_lead', $fields, $source )`
-  for developers and form-plugin bridges. Field aliases (`your-name`, `company`, `message` …) are
-  mapped onto the lead; anything else is kept in the lead's notes.
+- **Intake** — Contact Form 7, WPForms and Gravity Forms bridges (tick the forms under Settings ›
+  Proiect.ro › Forms), the `[proiectro_lead_form]` shortcode, and
+  `do_action( 'proiectro_capture_lead', $fields, $source )` for anything else. Field aliases
+  (`your-name`, `company`, `message` …) are mapped onto the lead; anything else is kept in the
+  lead's notes.
 
 See `readme.txt` for the WordPress.org listing text.
 
