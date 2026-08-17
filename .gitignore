@@ -1,0 +1,5 @@
+build/
+*.zip
+*.log
+node_modules/
+vendor/

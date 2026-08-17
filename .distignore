@@ -1,0 +1,17 @@
+# Not part of the shipped plugin (WordPress.org deploy honours this file)
+.git
+.github
+.gitignore
+.distignore
+.wordpress-org
+node_modules
+tests
+build
+*.zip
+*.log
+composer.json
+composer.lock
+package.json
+package-lock.json
+phpcs.xml.dist
+phpunit.xml.dist
