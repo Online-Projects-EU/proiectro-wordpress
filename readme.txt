@@ -1,5 +1,5 @@
 === Proiect.ro ===
-Contributors: proiectro
+Contributors: ogherghinis
 Tags: crm, leads, contact form 7, wpforms, gravity forms
 Requires at least: 6.2
 Tested up to: 7.0
