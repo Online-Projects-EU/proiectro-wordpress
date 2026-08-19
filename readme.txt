@@ -8,7 +8,7 @@ Stable tag: 0.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Send leads from your WordPress forms to your Proiect.ro workspace — reliably, with a local outbox that retries until every lead is delivered.
+Send leads from your WordPress forms to your Proiect.ro workspace reliably, with a local outbox that retries until every lead is delivered.
 
 == Description ==
 

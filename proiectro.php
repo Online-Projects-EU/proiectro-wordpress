@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Proiect.ro
- * Plugin URI:        https://proiect.ro
+ * Plugin URI:        https://github.com/Online-Projects-EU/proiectro-wordpress
  * Description:       Send leads from your WordPress forms to your Proiect.ro workspace — reliably, with a local outbox that retries until every lead is delivered.
  * Version:           0.1.0
  * Requires at least: 6.2
